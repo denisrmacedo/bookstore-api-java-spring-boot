@@ -3,6 +3,8 @@ package com.bookstore.bookstore.models;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -18,6 +20,12 @@ public class BookModel implements Serializable {
    @ManyToOne
    @JoinColumn(name = "publisher_id")
    private PublisherModel publisher;
+    @ManyToMany
+    @JoinTable(
+            name = "tb_book_author",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name= "autor_id"))
+    private Set<AuthorModel> authors = new HashSet<>();
 
     public UUID getId() {
         return id;
@@ -36,5 +44,17 @@ public class BookModel implements Serializable {
 
     public PublisherModel getPublisher() {
         return publisher;
+    }
+
+    public void setPublisher(PublisherModel publisher) {
+        this.publisher = publisher;
+    }
+
+    public Set<AuthorModel> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<AuthorModel> authors) {
+        this.authors = authors;
     }
 }
