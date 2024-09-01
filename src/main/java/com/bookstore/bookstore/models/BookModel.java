@@ -15,6 +15,10 @@ public class BookModel implements Serializable {
    @Column(nullable = false, unique = true)
    private String title;
 
+   @ManyToOne
+   @JoinColumn(name = "publisher_id")
+   private PublisherModel publisher;
+
     public UUID getId() {
         return id;
     }
@@ -30,4 +34,7 @@ public class BookModel implements Serializable {
         this.title = title;
     }
 
+    public PublisherModel getPublisher() {
+        return publisher;
+    }
 }
